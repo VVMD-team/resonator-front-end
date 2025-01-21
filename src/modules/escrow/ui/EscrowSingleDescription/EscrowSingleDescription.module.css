@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+}
+
+.container__textContainer {
+  display: flex;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  word-break: break-word;
+
+  white-space: pre-wrap;
+  flex-basis: calc(100% - 120px);
+}
+
+.container__textContainer__text {
+  font-size: 1rem;
+  color: #fff;
+}

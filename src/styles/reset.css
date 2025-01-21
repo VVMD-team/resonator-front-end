@@ -1,0 +1,158 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1.6;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+  content: none;
+}
+
+code,
+pre {
+  font-family: monospace, monospace;
+  font-size: inherit;
+}
+
+input,
+button,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 1rem 0;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  display: block;
+  font-size: 90%;
+  color: #666;
+}
+
+address {
+  font-style: normal;
+  line-height: inherit;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+  color: inherit;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+abbr[title],
+acronym[title] {
+  border-bottom: none;
+  cursor: help;
+  text-decoration: none;
+}
+
+time {
+  display: inline;
+}
+
+a,
+button {
+  padding-block: 0;
+  padding-inline: 0;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}

@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  border-radius: 0.427rem;
+  border: 2px solid white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+@media screen and (min-width: 767px) {
+  .content {
+    padding: 0 1.5rem;
+    gap: 2.375rem;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .container {
+    padding: 3rem 2.5rem;
+  }
+}

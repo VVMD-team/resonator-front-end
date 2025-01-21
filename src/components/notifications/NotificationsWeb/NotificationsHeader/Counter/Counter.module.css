@@ -1,0 +1,23 @@
+.counter {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+
+  border-radius: 50%;
+
+  font-size: 16px;
+
+  background-color: #ff0000;
+
+  min-width: max-content;
+
+  padding: 0px 4px;
+}
+
+.counter.fixedWidth {
+  min-width: 22px;
+  width: 22px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0;
+}

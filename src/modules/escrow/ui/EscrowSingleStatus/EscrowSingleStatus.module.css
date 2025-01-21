@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.container__label {
+  display: block;
+  width: 10%;
+  display: none;
+}
+
+.container__indicator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.container__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  width: 19px;
+  height: 19px;
+}
+
+.container__text {
+  font-size: 16px;
+}

@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.container__icon {
+  margin-top: 0.5rem;
+
+  display: inline-block;
+
+  color: white;
+
+  --size: 2.125rem;
+  width: var(--size);
+  min-width: var(--size);
+  height: var(--size);
+  min-height: var(--size);
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container__titleContainer {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.container__titleContainer__title {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.container__titleContainer__title__text {
+  margin-left: 1rem;
+  font-weight: bold;
+  color: white;
+  font-size: 2.38rem;
+}

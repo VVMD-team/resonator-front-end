@@ -1,0 +1,13 @@
+.timer {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.52px;
+
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 767px) {
+  .timer {
+    margin-left: 1.5rem;
+  }
+}

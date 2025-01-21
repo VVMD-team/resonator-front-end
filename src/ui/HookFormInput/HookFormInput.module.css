@@ -1,0 +1,37 @@
+.input {
+  min-width: 281px;
+
+  border-width: 1.117px;
+  border-style: solid;
+
+  border-color: white;
+  border-radius: 11.67px;
+
+  width: 100%;
+
+  padding: 10px 18px;
+
+  background: transparent;
+  color: white;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+.input::placeholder {
+  color: #3B3B3B;
+}
+
+.inactive {
+  opacity: 0.7;
+}
+
+.errorBorder {
+  border-color: #fe2222;
+}

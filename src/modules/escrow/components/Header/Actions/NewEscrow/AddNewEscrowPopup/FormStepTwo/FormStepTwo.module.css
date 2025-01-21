@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.form__header {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.form__header_icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  cursor: pointer;
+  font-size: 1.875rem;
+  font-weight: bold;
+}
+
+.form__header_title {
+  margin-top: 0.25rem;
+  font-size: 18.68px;
+  font-weight: bold;
+}
+
+.form__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.375rem;
+}
+
+.form__content__icon {
+  align-self: center;
+  transform: rotate(90deg);
+}
+
+.textarea {
+  margin-top: 0.625rem;
+}
+
+.form___button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3.75rem;
+  min-width: 6rem;
+}
+
+.form___button__loader {
+  margin-left: auto;
+  margin-right: auto;
+}
+.tooltip {
+  font-size: 14px;
+  color: #7e7e7e;
+}
+
+@media screen and (min-width: 991px) {
+  .tooltip {
+    white-space: nowrap;
+  }
+  .form__content {
+    flex-direction: row;
+    gap: 3.75rem;
+  }
+
+  .form__content__icon {
+    margin-bottom: auto;
+    margin-top: auto;
+    align-self: flex-end;
+    transform: rotate(0deg);
+  }
+}

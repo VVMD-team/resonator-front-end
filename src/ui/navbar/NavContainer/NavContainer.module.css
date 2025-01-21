@@ -1,0 +1,35 @@
+.nav_component {
+  z-index: 300;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  background-color: #ffffff1a;
+  border-radius: 0.4375rem;
+  flex-flow: column;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+  grid-auto-columns: 1fr;
+  justify-content: flex-start;
+  place-items: start center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: grid;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .nav_component {
+    height: var(--nav--height-mobile);
+    padding: 0rem var(--paddings--side-mobile);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border-radius: 0;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+}

@@ -1,0 +1,16 @@
+.text {
+  font-size: 18.68px;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.container__button {
+  padding: 0.5rem 1.5rem !important;
+}

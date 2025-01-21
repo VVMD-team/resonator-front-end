@@ -1,0 +1,21 @@
+.container {
+  display: none;
+}
+
+@media screen and (min-width: 767px) {
+  .container {
+    margin-top: 2.625rem;
+
+    background-color: #1a1a1a;
+
+    padding: 1.25rem;
+    border-radius: 6.83px;
+
+    flex-basis: 35%;
+    gap: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    max-height: max-content;
+  }
+}

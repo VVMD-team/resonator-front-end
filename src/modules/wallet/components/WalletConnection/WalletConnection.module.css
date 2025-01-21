@@ -1,0 +1,59 @@
+.loader_container {
+  position: relative;
+  margin: 1rem auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 2rem;
+}
+
+.tooltip {
+  font-size: 1rem;
+  text-align: center;
+
+  padding: 0 3rem 1rem;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader_container__par {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+.login_popup_content {
+  z-index: 2;
+  position: relative;
+
+  border: 1px solid var(--colors--black);
+  background-image: linear-gradient(
+    114deg,
+    var(--colors--raven),
+    var(--colors--nero)
+  );
+  border-radius: 1.3125rem;
+}
+
+.scale {
+  --transform-size: 1.7;
+
+  -webkit-transform: scale(var(--transform-size));
+  -moz-transform: scale(var(--transform-size));
+  -ms-transform: scale(var(--transform-size));
+  transform: scale(var(--transform-size));
+}
+
+@media screen and (max-width: 991px) {
+  .scale {
+    --transform-size: 1.5;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .scale {
+    --transform-size: 2;
+  }
+}

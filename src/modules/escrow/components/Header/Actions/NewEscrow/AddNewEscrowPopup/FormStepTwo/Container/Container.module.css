@@ -1,0 +1,19 @@
+.popup_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: white;
+}
+
+.popup_section_field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.popup_section_divider {
+  width: 100%;
+  height: 1.12px;
+  background-color: white;
+}

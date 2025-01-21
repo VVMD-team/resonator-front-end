@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  gap: 0.563rem;
+}
+
+.header__title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 23.52px;
+}

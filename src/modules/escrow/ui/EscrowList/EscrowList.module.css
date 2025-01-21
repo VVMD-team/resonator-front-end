@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.125rem;
+}
+
+.container__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container__title {
+  font-size: 16px;
+  color: white;
+}
+
+.container__divider {
+  display: block;
+  color: white;
+}
+
+.container__list {
+  display: flex;
+  flex-direction: column;
+  max-height: 199px;
+  overflow-y: scroll;
+  gap: 0.5rem;
+}
+
+.container__list::-webkit-scrollbar {
+  width: 9px;
+}
+.container__list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.container__list::-webkit-scrollbar-thumb {
+  background-color: #6b6b6b;
+  border-radius: 2.5rem;
+}
+
+@media screen and (min-width: 767px) {
+  .container__divider {
+    display: none;
+  }
+
+  .container__list {
+    gap: 0.5rem;
+  }
+}

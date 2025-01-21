@@ -1,0 +1,41 @@
+.link {
+  background-color: #191919;
+
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  border-radius: 0.625rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.688rem 0.75rem 0.875rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  --size: 38px;
+  background-color: #313131;
+  border-radius: 8px;
+  min-width: var(--size);
+  width: var(--size);
+  min-height: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trippledots {
+  --size: 18px;
+  min-width: var(--size);
+  width: var(--size);
+  min-height: var(--size);
+  height: var(--size);
+}

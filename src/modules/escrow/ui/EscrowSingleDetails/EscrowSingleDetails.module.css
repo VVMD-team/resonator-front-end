@@ -1,0 +1,36 @@
+.details {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.details__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.details__content.reversed {
+  flex-direction: column-reverse;
+}
+
+.details__content__image {
+  transform-origin: center;
+  transform: rotate(90deg);
+}
+
+@media screen and (min-width: 991px) {
+  .details__content {
+    flex-direction: row;
+    align-items: center;
+    gap: 3.75rem;
+  }
+
+  .details__content.reversed {
+    flex-direction: row-reverse;
+  }
+
+  .details__content__image {
+    margin-top: 1rem;
+    transform: rotate(0);
+  }
+}

@@ -1,0 +1,81 @@
+.reactSelectContainer {
+  height: 100%;
+  display: flex;
+}
+
+.reactSelectContainer :global(.react-select__menu) {
+  min-width: 100%;
+  padding: 20px 23px;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+}
+
+.reactSelectContainer :global(.react-select__menu-list) {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reactSelectContainer :global(.react-select__option) {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.reactSelectContainer :global(.react-select__placeholder) {
+  color: #3b3b3b;
+}
+
+.SelectPrimary :global(.react-select__single-value) {
+  display: flex;
+  gap: 5px;
+}
+
+.SelectPrimary :global(.react-select__single-value)::before {
+  content: "Currency:";
+  color: #b3b3b3;
+}
+
+.SelectPrimary :global(.react-select__control) {
+  flex-direction: row-reverse;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.SelectPrimary :global(.react-select__menu) {
+  min-width: calc(100% + 80px);
+  margin-left: -40px;
+}
+
+.SelectSecondary {
+  min-width: 281px;
+  height: 46px;
+  padding: 10px 14px 10px 18px;
+  border-width: 1.117px;
+  border-style: solid;
+  border-color: #fff;
+
+  border-radius: 11.67px;
+  background: transparent;
+  color: #3b3b3b;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.SelectSecondary :global(.react-select__single-value) {
+  color: #ffffff;
+}
+
+.SelectSecondary :global(.react-select__control) {
+  width: 100%;
+}
+
+.SelectSecondary :global(.react-select__menu) {
+  margin-left: -15px;
+}
+
+.errorBorder {
+  border-color: #fe2222;
+}
