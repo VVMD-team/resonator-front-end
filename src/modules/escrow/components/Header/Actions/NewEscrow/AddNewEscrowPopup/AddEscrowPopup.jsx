@@ -1,10 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useLoading from "@/lib/hooks/useLoading";
 
-import { useWaitForTransactionReceipt } from "wagmi";
+import { useWaitForTransactionReceipt, useEstimateGas } from "wagmi";
+import { parseEther } from "viem";
+import escrowSwapConfig from "@/modules/escrow/contracts/escrow-swap/config";
 
 import {
   escrowSelects,
@@ -18,10 +20,51 @@ import FormStepOne from "./FormStepOne";
 import FormStepTwo from "./FormStepTwo";
 
 import { usePlaceOrder } from "@/modules/escrow/contracts/escrow-swap/write";
+import { useApproveToken } from "@/modules/escrow/contracts/tokens/write";
 import { formatFinalDataToFormData } from "./helpers";
 import { confirmClose } from "../helpers";
+import { escrowCurrencies } from "@/modules/escrow/constants";
+
+const dataToPlaceOrderData = (data) => {
+  return {
+    dealType: data.dealType,
+    counterpartyAddress: data.counterpartyAddress,
+    providedPayment: data.providedPayment,
+    requestedPayment: data.requestedPayment,
+    fileContractId: data.fileContractId,
+    counterpartyFileContractId: data.counterpartyFileContractId,
+  };
+};
+
+const getCurrencyAmountFromData = (providedPayment) => {
+  if (!providedPayment) return {};
+
+  const currency = providedPayment.currency;
+  const amount = providedPayment.amount;
+
+  return { currency, amount };
+};
 
 export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
+  const estimateGasResult = useEstimateGas({
+    // enabled: false,
+    to: escrowSwapConfig.address,
+    value: parseEther("0.01"),
+  });
+  console.log({ estimateGasResult });
+  const {
+    approveToken: approveTokenReset,
+    isLoading: isLoadingApproveTokenReset,
+    isSuccess: isSuccessApproveTokenReset,
+    error: errorApproveTokenReset,
+  } = useApproveToken();
+  const {
+    approveToken: approveTokenFinal,
+    isLoading: isLoadingApproveTokenFinal,
+    isSuccess: isSuccessApproveTokenFinal,
+    error: errorApproveTokenFinal,
+  } = useApproveToken();
+
   const {
     data: placeOrderDataHash,
     isPending,
@@ -87,31 +130,66 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
     });
   };
 
-  const handleSubmitStepTwo = useCallback(
-    (stepTwoData) => {
-      startLoading();
+  const handleSubmitStepTwo = (stepTwoData) => {
+    startLoading();
 
-      const data = { ...stepOneData, ...stepTwoData };
+    const data = { ...stepOneData, ...stepTwoData };
 
-      const placeOrderData = {
-        dealType: data.dealType,
-        counterpartyAddress: data.counterpartyAddress,
-        providedPayment: data.providedPayment,
-        requestedPayment: data.requestedPayment,
-        fileContractId: data.fileContractId,
-        counterpartyFileContractId: data.counterpartyFileContractId,
-      };
+    const { currency, amount } = getCurrencyAmountFromData(
+      data.providedPayment
+    );
+
+    const isEther = currency === escrowCurrencies.ETH;
+
+    if (currency && amount && !isEther) {
+      const isNeedDoubleApprove =
+        currency === escrowCurrencies.WBTC ||
+        currency === escrowCurrencies.USDT;
+
+      if (isNeedDoubleApprove) {
+        approveTokenReset(currency, "0");
+      } else {
+        approveTokenFinal(currency, amount);
+      }
+    } else {
+      const placeOrderData = dataToPlaceOrderData(data);
 
       if (data.dealType === escrowDealTypes.file_to_file) {
         placeOrder(placeOrderData, { extraFee: fileToFileExtraFee });
       } else {
         placeOrder(placeOrderData);
       }
+    }
 
-      setFinalData(data);
-    },
-    [stepOneData]
-  );
+    setFinalData(data);
+  };
+
+  useEffect(() => {
+    if (
+      isSuccessApproveTokenReset &&
+      !isLoadingApproveTokenReset &&
+      !isSuccessApproveTokenFinal
+    ) {
+      const { currency, amount } = getCurrencyAmountFromData(
+        finalData.providedPayment
+      );
+
+      approveTokenFinal(currency, amount);
+    }
+  }, [
+    finalData,
+    isSuccessApproveTokenReset,
+    isLoadingApproveTokenReset,
+    isSuccessApproveTokenFinal,
+  ]);
+
+  useEffect(() => {
+    if (isSuccessApproveTokenFinal && !isLoadingApproveTokenFinal) {
+      const placeOrderData = dataToPlaceOrderData(finalData);
+
+      placeOrder(placeOrderData);
+    }
+  }, [finalData, isSuccessApproveTokenFinal, isLoadingApproveTokenFinal]);
 
   useEffect(() => {
     if (isConfirming) {
@@ -140,14 +218,24 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
         })
         .finally(stopLoading);
     }
-  }, [isConfirming, isConfirmed, finalData]);
+  }, [finalData, isConfirming, isConfirmed]);
 
   useEffect(() => {
-    if (!error) return;
+    if (!errorApproveTokenReset && !errorApproveTokenFinal && !error) return;
 
     stopLoading();
-    alert(error.shortMessage || error.message);
-  }, [error]);
+
+    const shortMessage =
+      errorApproveTokenReset?.shortMessage ||
+      errorApproveTokenFinal?.shortMessage ||
+      error?.shortMessage;
+    const message =
+      errorApproveTokenReset?.message ||
+      errorApproveTokenFinal?.message ||
+      error?.message;
+
+    alert(shortMessage || message);
+  }, [errorApproveTokenReset, errorApproveTokenFinal, error]);
 
   return !stepOneData ? (
     <FormStepOne onClose={onClose} onSubmit={handleSubmitStepOne} />

@@ -24,7 +24,7 @@ export default function EscrowSingleHeader() {
         <p className={styles.container__titleContainer__title}>
           <TbChevronLeft
             onClick={handleBack}
-            className={styles.container__icon}
+            className={styles.container__titleContainer__icon}
           />
           <soan
             className={cn(

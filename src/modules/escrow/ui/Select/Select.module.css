@@ -33,15 +33,18 @@
   gap: 5px;
 }
 
-.SelectPrimary :global(.react-select__single-value)::before {
-  content: "Currency:";
-  color: #b3b3b3;
+@media screen and (min-width: 479px) {
+  .SelectPrimary :global(.react-select__single-value)::before {
+    content: "Currency:";
+    color: #b3b3b3;
+  }
 }
 
 .SelectPrimary :global(.react-select__control) {
   flex-direction: row-reverse;
-  gap: 20px;
+  gap: 1rem;
   cursor: pointer;
+  flex-wrap: nowrap;
 }
 
 .SelectPrimary :global(.react-select__menu) {

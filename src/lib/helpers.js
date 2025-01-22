@@ -152,3 +152,16 @@ export const countdownToTimestamp = (timestamp) => {
 
   return `${daysStr} ${hoursStr} ${minutesStr}`.trim();
 };
+
+export const convertBigIntToDecimal = (bigIntValue, decimals) => {
+  const strValue = bigIntValue.toString();
+
+  if (strValue.length <= decimals) {
+    return "0." + strValue.padStart(decimals, "0");
+  }
+
+  const integerPart = strValue.slice(0, -decimals);
+  const decimalPart = strValue.slice(-decimals);
+
+  return parseFloat(`${integerPart}.${decimalPart}`);
+};

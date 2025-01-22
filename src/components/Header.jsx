@@ -4,7 +4,7 @@ import { formatStringShorter } from "@/lib/helpers";
 import { useState, useEffect } from "react";
 import { getWalletBalance } from "@/modules/user/api";
 
-import { useAccount } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 

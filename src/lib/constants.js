@@ -19,6 +19,58 @@ export const walletBalanceCurrencies = {
   USDC: "USDC",
 };
 
+export const tokenAddresesMap = {
+  [walletBalanceCurrencies.ETH]: null,
+  [walletBalanceCurrencies.WBTC]: "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+  [walletBalanceCurrencies.USDT]: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+  [walletBalanceCurrencies.USDC]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+};
+
+export const tokenApprovalAbisMap = {
+  [walletBalanceCurrencies.WBTC]: [
+    {
+      constant: false,
+      inputs: [
+        { name: "_spender", type: "address" },
+        { name: "_value", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [{ name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ],
+  [walletBalanceCurrencies.USDT]: [
+    {
+      constant: false,
+      inputs: [
+        { name: "_spender", type: "address" },
+        { name: "_value", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ],
+  [walletBalanceCurrencies.USDC]: [
+    {
+      constant: false,
+      inputs: [
+        { name: "_spender", type: "address" },
+        { name: "_value", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [{ name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ],
+};
+
 export const solanaWallets = [walletTypes.PHANTOM];
 
 export const authMessage =
