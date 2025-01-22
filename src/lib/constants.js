@@ -86,6 +86,8 @@ export const enviromentTypes = {
 export const enviroment = process.env.NEXT_PUBLIC_APP_ENVIRONMENT;
 
 export const { apiUrl, wsUrl } = (() => {
+  return { apiUrl: "http://localhost:8000", wsUrl: "ws://localhost:8000" };
+
   switch (enviroment) {
     case enviromentTypes.production:
       return {

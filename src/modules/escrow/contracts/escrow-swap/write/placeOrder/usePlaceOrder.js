@@ -1,4 +1,4 @@
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 import { parseEther } from "viem";
 import config from "../../config";

@@ -1,10 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useLoading from "@/lib/hooks/useLoading";
 
-import { useWaitForTransactionReceipt } from "wagmi";
+import { useWaitForTransactionReceipt, useEstimateGas } from "wagmi";
+import { parseEther } from "viem";
+import escrowSwapConfig from "@/modules/escrow/contracts/escrow-swap/config";
 
 import {
   escrowSelects,
@@ -44,6 +46,12 @@ const getCurrencyAmountFromData = (providedPayment) => {
 };
 
 export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
+  const estimateGasResult = useEstimateGas({
+    // enabled: false,
+    to: escrowSwapConfig.address,
+    value: parseEther("0.01"),
+  });
+  console.log({ estimateGasResult });
   const {
     approveToken: approveTokenReset,
     isLoading: isLoadingApproveTokenReset,

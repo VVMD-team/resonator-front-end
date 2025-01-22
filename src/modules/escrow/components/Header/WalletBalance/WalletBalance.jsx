@@ -15,6 +15,8 @@ import Select from "@/modules/escrow/ui/Select/Select";
 
 import { mainnet } from "wagmi/chains";
 
+import { convertBigIntToDecimal } from "@/lib/helpers";
+
 const options = [
   { value: walletBalanceCurrencies.ETH, label: "Ethereum" },
   { value: walletBalanceCurrencies.WBTC, label: "WBTC" },
