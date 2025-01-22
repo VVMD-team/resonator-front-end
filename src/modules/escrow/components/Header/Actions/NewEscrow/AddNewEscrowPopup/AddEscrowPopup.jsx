@@ -34,12 +34,27 @@ const dataToPlaceOrderData = (data) => {
   };
 };
 
+const getCurrencyAmountFromData = (providedPayment) => {
+  if (!providedPayment) return {};
+
+  const currency = providedPayment.currency;
+  const amount = providedPayment.amount;
+
+  return { currency, amount };
+};
+
 export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
   const {
-    approveToken,
-    isLoading: isLoadingApproveToken,
-    isSuccess: isSuccessApproveToken,
-    error: errorApproveToken,
+    approveToken: approveTokenReset,
+    isLoading: isLoadingApproveTokenReset,
+    isSuccess: isSuccessApproveTokenReset,
+    error: errorApproveTokenReset,
+  } = useApproveToken();
+  const {
+    approveToken: approveTokenFinal,
+    isLoading: isLoadingApproveTokenFinal,
+    isSuccess: isSuccessApproveTokenFinal,
+    error: errorApproveTokenFinal,
   } = useApproveToken();
 
   const {
@@ -107,42 +122,66 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
     });
   };
 
-  const handleSubmitStepTwo = useCallback(
-    (stepTwoData) => {
-      startLoading();
+  const handleSubmitStepTwo = (stepTwoData) => {
+    startLoading();
 
-      const data = { ...stepOneData, ...stepTwoData };
+    const data = { ...stepOneData, ...stepTwoData };
 
-      const providedPayment = data?.providedPayment;
-      const currency = providedPayment?.currency;
-      const amount = providedPayment?.amount;
+    const { currency, amount } = getCurrencyAmountFromData(
+      data.providedPayment
+    );
 
-      const isEther = currency === escrowCurrencies.ETH;
+    const isEther = currency === escrowCurrencies.ETH;
 
-      if (currency && amount && !isEther) {
-        approveToken(currency, amount);
+    if (currency && amount && !isEther) {
+      const isNeedDoubleApprove =
+        currency === escrowCurrencies.WBTC ||
+        currency === escrowCurrencies.USDT;
+
+      if (isNeedDoubleApprove) {
+        approveTokenReset(currency, "0");
       } else {
-        const placeOrderData = dataToPlaceOrderData(data);
-
-        if (data.dealType === escrowDealTypes.file_to_file) {
-          placeOrder(placeOrderData, { extraFee: fileToFileExtraFee });
-        } else {
-          placeOrder(placeOrderData);
-        }
+        approveTokenFinal(currency, amount);
       }
+    } else {
+      const placeOrderData = dataToPlaceOrderData(data);
 
-      setFinalData(data);
-    },
-    [stepOneData]
-  );
+      if (data.dealType === escrowDealTypes.file_to_file) {
+        placeOrder(placeOrderData, { extraFee: fileToFileExtraFee });
+      } else {
+        placeOrder(placeOrderData);
+      }
+    }
+
+    setFinalData(data);
+  };
 
   useEffect(() => {
-    if (isSuccessApproveToken && !isLoadingApproveToken) {
+    if (
+      isSuccessApproveTokenReset &&
+      !isLoadingApproveTokenReset &&
+      !isSuccessApproveTokenFinal
+    ) {
+      const { currency, amount } = getCurrencyAmountFromData(
+        finalData.providedPayment
+      );
+
+      approveTokenFinal(currency, amount);
+    }
+  }, [
+    finalData,
+    isSuccessApproveTokenReset,
+    isLoadingApproveTokenReset,
+    isSuccessApproveTokenFinal,
+  ]);
+
+  useEffect(() => {
+    if (isSuccessApproveTokenFinal && !isLoadingApproveTokenFinal) {
       const placeOrderData = dataToPlaceOrderData(finalData);
 
       placeOrder(placeOrderData);
     }
-  }, [finalData, isSuccessApproveToken, isLoadingApproveToken]);
+  }, [finalData, isSuccessApproveTokenFinal, isLoadingApproveTokenFinal]);
 
   useEffect(() => {
     if (isConfirming) {
@@ -174,18 +213,21 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
   }, [finalData, isConfirming, isConfirmed]);
 
   useEffect(() => {
-    if (!error) return;
+    if (!errorApproveTokenReset && !errorApproveTokenFinal && !error) return;
 
     stopLoading();
-    alert(error.shortMessage || error.message);
-  }, [error]);
 
-  useEffect(() => {
-    if (!errorApproveToken) return;
+    const shortMessage =
+      errorApproveTokenReset?.shortMessage ||
+      errorApproveTokenFinal?.shortMessage ||
+      error?.shortMessage;
+    const message =
+      errorApproveTokenReset?.message ||
+      errorApproveTokenFinal?.message ||
+      error?.message;
 
-    stopLoading();
-    alert(errorApproveToken.shortMessage || errorApproveToken.message);
-  }, [errorApproveToken]);
+    alert(shortMessage || message);
+  }, [errorApproveTokenReset, errorApproveTokenFinal, error]);
 
   return !stepOneData ? (
     <FormStepOne onClose={onClose} onSubmit={handleSubmitStepOne} />
