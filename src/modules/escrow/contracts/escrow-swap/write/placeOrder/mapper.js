@@ -43,6 +43,17 @@ const mapInputData = ({
     data.fileContractId || 0,
   ];
 
+  console.log("data to contract: ", {
+    _counterparty: data.counterparty,
+    _orderType: data.orderType,
+    _currency: data.currency || etheriumCurrencyAddress,
+    _amount: data.amount || 0,
+    _counterpartyCurrency: data.counterpartyCurrency || etheriumCurrencyAddress,
+    _counterpartyAmount: data.counterpartyAmount || 0,
+    _fileId: data.counterpartyFileContractId || 0,
+    _counterpartyFileId: data.fileContractId || 0,
+  });
+
   return dataArray;
 };
 

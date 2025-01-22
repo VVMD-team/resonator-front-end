@@ -1,16 +1,5 @@
 export default [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
-  { inputs: [], name: "AccessControlBadConfirmation", type: "error" },
-  {
-    inputs: [
-      { internalType: "address", name: "account", type: "address" },
-      { internalType: "bytes32", name: "neededRole", type: "bytes32" },
-    ],
-    name: "AccessControlUnauthorizedAccount",
-    type: "error",
-  },
-  { inputs: [], name: "EnforcedPause", type: "error" },
-  { inputs: [], name: "ExpectedPause", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -448,7 +437,7 @@ export default [
   {
     inputs: [
       { internalType: "bytes32", name: "role", type: "bytes32" },
-      { internalType: "address", name: "callerConfirmation", type: "address" },
+      { internalType: "address", name: "account", type: "address" },
     ],
     name: "renounceRole",
     outputs: [],
