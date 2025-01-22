@@ -17,13 +17,14 @@
 
 @media screen and (min-width: 767px) {
   .content {
-    padding: 0 1.5rem;
+    padding-left: 2.875rem;
+    padding-right: 1rem;
     gap: 2.375rem;
   }
 }
 
 @media screen and (min-width: 991px) {
   .container {
-    padding: 3rem 2.5rem;
+    padding: 2.875rem 2.375rem;
   }
 }

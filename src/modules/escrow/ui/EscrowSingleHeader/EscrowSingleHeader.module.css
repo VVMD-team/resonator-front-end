@@ -3,7 +3,19 @@
   gap: 1rem;
 }
 
-.container__icon {
+.container__titleContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.container__titleContainer__title {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.container__titleContainer__icon {
   margin-top: 0.5rem;
 
   display: inline-block;
@@ -20,19 +32,8 @@
   cursor: pointer;
 }
 
-.container__titleContainer {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.container__titleContainer__title {
-  display: inline-block;
-  white-space: nowrap;
-}
-
 .container__titleContainer__title__text {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   font-weight: bold;
   color: white;
   font-size: 2.38rem;

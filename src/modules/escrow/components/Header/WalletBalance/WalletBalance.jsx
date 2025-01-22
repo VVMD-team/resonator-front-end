@@ -56,7 +56,9 @@ export default memo(function WalletBalance() {
         <p className={styles.container__box__par}>
           <span className={styles.container__box__par__text1}>Amount: </span>
           <span className={styles.container__box__par__text2}>
-            {data?.value && convertBigIntToDecimal(data.value, 16).toString()}
+            {data?.value
+              ? convertBigIntToDecimal(data.value, 16).toString()
+              : "0"}
           </span>
         </p>
       </div>

@@ -4,6 +4,7 @@
   line-height: 23.52px;
 
   margin-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 767px) {
