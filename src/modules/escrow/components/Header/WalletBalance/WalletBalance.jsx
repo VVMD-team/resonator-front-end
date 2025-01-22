@@ -60,6 +60,12 @@ export default memo(function WalletBalance() {
     token: walletBalanceTokensMap[currency],
   });
 
+  console.log({
+    currency,
+    data,
+    isError,
+    isLoading,
+  });
   // const fetchWalletBalance = async (selectedCurrency) => {
   //   try {
   //     const result = await getWalletBalance(selectedCurrency);
