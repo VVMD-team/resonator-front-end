@@ -1,10 +1,7 @@
 import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 
-import {
-  walletBalanceCurrencies,
-  tokenAddresesMap,
-  tokenApprovalAbisMap,
-} from "@/lib/constants";
+import { tokenAddresesMap, tokenApprovalAbisMap } from "@/lib/constants";
+import { escrowCurrencies } from "@/modules/escrow/constants";
 
 import { ethers } from "ethers";
 
@@ -19,15 +16,17 @@ export default function useApproveToken() {
   });
 
   const approveToken = async (token, amount) => {
-    const amountUint256Str = ethers
-      .parseUnits(amount.toString(), 18)
+    const decimals = token === escrowCurrencies.WBTC ? 8 : 6;
+
+    const amountInSmallestUnit = ethers
+      .parseUnits(amount.toString(), decimals)
       .toString();
 
     writeContract({
       address: tokenAddresesMap[token],
       abi: tokenApprovalAbisMap[token],
       functionName: "approve",
-      args: [config.address, amountUint256Str],
+      args: [config.address, amountInSmallestUnit],
     });
   };
 

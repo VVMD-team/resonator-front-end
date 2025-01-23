@@ -1,7 +1,14 @@
 import { ethers } from "ethers";
 
-export const formatAmount = (amount) => {
-  const decimals = 18;
+import { escrowCurrencies } from "@/modules/escrow/constants";
 
-  return ethers.parseUnits(amount, decimals).toString();
+export const formatAmount = (amount, currency) => {
+  const decimals =
+    currency === escrowCurrencies.ETH
+      ? 16
+      : currency === escrowCurrencies.WBTC
+      ? 8
+      : 6;
+
+  return ethers.parseUnits(amount.toString(), decimals).toString();
 };

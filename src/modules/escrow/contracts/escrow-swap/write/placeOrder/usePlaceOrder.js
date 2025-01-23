@@ -21,11 +21,9 @@ export default function usePlaceOrder() {
 
     const providedPayment = data?.providedPayment;
     const currency = providedPayment?.currency;
-    const amount = providedPayment?.amount;
+    const amount = providedPayment?.amount || "0";
 
-    const isEther = currency === escrowCurrencies.ETH;
-
-    const valueEther = !isEther ? "0" : amount || "0";
+    const valueEther = currency === escrowCurrencies.ETH ? amount : "0";
 
     const value = parseEther(
       `${sumStringIntegers(

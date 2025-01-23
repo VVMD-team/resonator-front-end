@@ -19,12 +19,15 @@ const mapInputData = ({
 
     ...(providedPayment && {
       currency: currencyAddressesMap[providedPayment.currency],
-      amount: formatAmount(providedPayment.amount),
+      amount: formatAmount(providedPayment.amount, providedPayment.currency),
     }),
 
     ...(requestedPayment && {
       counterpartyCurrency: currencyAddressesMap[requestedPayment.currency],
-      counterpartyAmount: formatAmount(requestedPayment.amount),
+      counterpartyAmount: formatAmount(
+        requestedPayment.amount,
+        requestedPayment.currency
+      ),
     }),
 
     ...(fileContractId && { fileContractId }),

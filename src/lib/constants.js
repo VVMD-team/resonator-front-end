@@ -89,7 +89,6 @@ export const { apiUrl, wsUrl } = (() => {
   switch (enviroment) {
     case enviromentTypes.production:
       return {
-        // apiUrl: "https://dapp-resonator-back-end.vercel.app",
         apiUrl: "https://resonator.ngrok.io",
         wsUrl: "wss://resonator.ngrok.io",
       };
