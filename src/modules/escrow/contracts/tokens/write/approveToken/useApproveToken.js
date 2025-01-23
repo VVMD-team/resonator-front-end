@@ -19,14 +19,15 @@ export default function useApproveToken() {
   });
 
   const approveToken = async (token, amount) => {
-    const decimals = token === walletBalanceCurrencies.WBTC ? 8 : 6;
-    const amountInSmallestUnit = ethers.parseUnits(amount.toString(), decimals);
+    const amountUint256Str = ethers
+      .parseUnits(amount.toString(), 18)
+      .toString();
 
     writeContract({
       address: tokenAddresesMap[token],
       abi: tokenApprovalAbisMap[token],
       functionName: "approve",
-      args: [config.address, amountInSmallestUnit],
+      args: [config.address, amountUint256Str],
     });
   };
 
