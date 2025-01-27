@@ -15,5 +15,15 @@ export default async function getBoxById(boxId) {
     throw new Error(data.message || "Something went wrong");
   }
 
-  return data.data;
+  let box = data.data;
+
+  if (box.type === boxTypes.transfered) {
+    box.name = "Transferred";
+  } else if (box.type === boxTypes.files_for_sell) {
+    box.name = "Files for sale";
+  } else if (box.type === boxTypes.files_bought) {
+    box.name = "Acquired Files";
+  }
+
+  return box;
 }

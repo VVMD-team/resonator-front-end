@@ -13,7 +13,24 @@ export default async function getAllBoxes() {
       }
     );
     const data = await response.json();
-    return { boxes: data?.data, total: data?.total };
+
+    const boxes = data.data.map((box) => {
+      const boxName = box.name;
+
+      if (box.type === boxTypes.transfered) {
+        boxName = "Transferred";
+      } else if (box.type === boxTypes.files_for_sell) {
+        boxName = "Files for sale";
+      } else if (box.type === boxTypes.files_bought) {
+        boxName = "Acquired Files";
+      }
+
+      return {
+        ...box,
+        name: boxName
+      }
+    })
+    return { boxes, total: data?.total };
   } catch (error) {
     console.error(error);
     return [];
