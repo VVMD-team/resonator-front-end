@@ -1,5 +1,6 @@
 import fetchWithToken from "@/lib/util/fetchWithToken";
 import { apiUrl, boxEndpoint } from "@/lib/constants";
+import { boxTypes } from "@/modules/box/constants";
 
 export default async function getAllBoxes() {
   try {
