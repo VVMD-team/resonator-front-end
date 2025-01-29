@@ -85,6 +85,7 @@ const checkIsRequiredDealType_file_to = ([dealType], schema) => {
 
 export const escrowCreateSchemaStepTwo = object().shape({
   description: string()
+    .trim()
     .required("This field is required")
     .max(500)
     .label("Description"),
