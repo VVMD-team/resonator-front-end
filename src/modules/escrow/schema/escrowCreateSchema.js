@@ -51,7 +51,11 @@ const paymentSchema = {
 
 export const escrowCreateSchemaStepOneFunction = (userId) =>
   object().shape({
-    name: string().required("This field is required").max(50).label("Name"),
+    name: string()
+      .trim()
+      .required("This field is required")
+      .max(50)
+      .label("Name"),
     counterpartyAddress: string()
       .required("This field is required")
       .test(
