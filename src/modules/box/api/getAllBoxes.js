@@ -16,7 +16,7 @@ export default async function getAllBoxes() {
     const data = await response.json();
 
     const boxes = data.data.map((box) => {
-      const boxName = box.name;
+      let boxName = box.name;
 
       if (box.type === boxTypes.transfered) {
         boxName = "Transferred";
@@ -28,9 +28,9 @@ export default async function getAllBoxes() {
 
       return {
         ...box,
-        name: boxName
-      }
-    })
+        name: boxName,
+      };
+    });
     return { boxes, total: data?.total };
   } catch (error) {
     console.error(error);

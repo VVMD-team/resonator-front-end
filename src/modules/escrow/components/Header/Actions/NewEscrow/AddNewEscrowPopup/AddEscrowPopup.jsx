@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import useLoading from "@/lib/hooks/useLoading";
 
 import { useWaitForTransactionReceipt } from "wagmi";
-import { parseEther } from "viem";
-import escrowSwapConfig from "@/modules/escrow/contracts/escrow-swap/config";
 
 import {
   escrowSelects,
@@ -21,31 +19,19 @@ import FormStepTwo from "./FormStepTwo";
 
 import { usePlaceOrder } from "@/modules/escrow/contracts/escrow-swap/write";
 import { useApproveToken } from "@/modules/escrow/contracts/tokens/write";
-import { formatFinalDataToFormData } from "./helpers";
-import { confirmClose } from "../helpers";
+import {
+  formatFinalDataToFormData,
+  formatDataToPlaceOrderData,
+  getCurrencyAmountFromData,
+} from "./helpers";
 import { escrowCurrencies } from "@/modules/escrow/constants";
 
-const dataToPlaceOrderData = (data) => {
-  return {
-    dealType: data.dealType,
-    counterpartyAddress: data.counterpartyAddress,
-    providedPayment: data.providedPayment,
-    requestedPayment: data.requestedPayment,
-    fileContractId: data.fileContractId,
-    counterpartyFileContractId: data.counterpartyFileContractId,
-  };
-};
-
-const getCurrencyAmountFromData = (providedPayment) => {
-  if (!providedPayment) return {};
-
-  const currency = providedPayment.currency;
-  const amount = providedPayment.amount;
-
-  return { currency, amount };
-};
-
 export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
+  const [step, setStep] = useState(1); // 1 | 2
+  const [stepOneData, setStepOneData] = useState(null);
+  const [finalData, setFinalData] = useState(null);
+  const { isLoading, startLoading, stopLoading } = useLoading(false);
+
   const {
     approveToken: approveTokenReset,
     isLoading: isLoadingApproveTokenReset,
@@ -72,20 +58,9 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
 
   const router = useRouter();
 
-  const [stepOneData, setStepOneData] = useState(null);
-  const [finalData, setFinalData] = useState(null);
-  const { isLoading, startLoading, stopLoading } = useLoading(false);
-
   const handleBack = () => {
-    const isConfirmed = confirmClose();
-
-    if (isConfirmed) {
-      setStepOneData(null);
-    }
+    setStep(1);
   };
-
-  // console.log("error contract: ", error);
-  // console.log("placeOrderDataHash: ", placeOrderDataHash);
 
   const handleSubmitStepOne = async ({
     name,
@@ -117,11 +92,14 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
       throw new Error("Invalid  deal type");
     }
 
+    console.log({ dealType });
+
     setStepOneData({
       name,
       counterpartyAddress,
       dealType,
     });
+    setStep(2);
   };
 
   const handleSubmitStepTwo = (stepTwoData) => {
@@ -146,7 +124,7 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
         approveTokenFinal(currency, amount);
       }
     } else {
-      const placeOrderData = dataToPlaceOrderData(data);
+      const placeOrderData = formatDataToPlaceOrderData(data);
 
       if (data.dealType === escrowDealTypes.file_to_file) {
         placeOrder(placeOrderData, { extraFee: fileToFileExtraFee });
@@ -179,7 +157,7 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
 
   useEffect(() => {
     if (isSuccessApproveTokenFinal && !isLoadingApproveTokenFinal) {
-      const placeOrderData = dataToPlaceOrderData(finalData);
+      const placeOrderData = formatDataToPlaceOrderData(finalData);
 
       placeOrder(placeOrderData);
     }
@@ -231,8 +209,12 @@ export default function AddEscrowPopup({ onClose, onCreateEscrow }) {
     alert(shortMessage || message);
   }, [errorApproveTokenReset, errorApproveTokenFinal, error]);
 
-  return !stepOneData ? (
-    <FormStepOne onClose={onClose} onSubmit={handleSubmitStepOne} />
+  return step === 1 ? (
+    <FormStepOne
+      onClose={onClose}
+      onSubmit={handleSubmitStepOne}
+      defaultValues={stepOneData}
+    />
   ) : (
     <FormStepTwo
       name={stepOneData.name}

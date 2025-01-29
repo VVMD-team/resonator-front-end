@@ -4,8 +4,9 @@ import { formatStringShorter } from "@/lib/helpers";
 import { useState, useEffect } from "react";
 import { getWalletBalance } from "@/modules/user/api";
 
-import { useAccount, useBalance } from "wagmi";
+import { useAccount } from "wagmi";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
 import { walletBalanceCurrencies } from "@/lib/constants";
@@ -40,9 +41,11 @@ export default function Header() {
         </button>
       ) : (
         <Link href="/" aria-current="page" className="header_logo">
-          <img
+          <Image
+            width={253}
+            height={47}
+            priority={true}
             src="/images/logo.svg"
-            loading="lazy"
             alt="Resonator logotype"
             className="header_logo_image"
           />

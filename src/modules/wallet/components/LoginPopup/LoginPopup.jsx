@@ -1,12 +1,16 @@
 import styles from "./LoginPopup.module.css";
-import WalletConnection from "../WalletConnection";
 
-export default function LoginPopup({ id }) {
+import Wrapper from "./Wrapper";
+import WalletConnection from "./WalletConnection";
+
+export default function LoginPopup({ loginPopupId }) {
   return (
-    <div id={id} className={styles.login_popup}>
-      <div className={styles.login_popup_background}></div>
+    <Wrapper loginPopupId={loginPopupId}>
+      <div id={loginPopupId} className={styles.login_popup}>
+        <div className={styles.login_popup_background}></div>
 
-      <WalletConnection />
-    </div>
+        <WalletConnection />
+      </div>
+    </Wrapper>
   );
 }

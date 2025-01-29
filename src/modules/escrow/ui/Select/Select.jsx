@@ -31,6 +31,7 @@ const CustomSelect = ({
       classNamePrefix="react-select"
       name={name}
       placeholder={placeholder}
+      aria-label={placeholder || "Select an option"}
       options={options}
       value={options.find((option) => option.value === value)}
       onChange={onChange}

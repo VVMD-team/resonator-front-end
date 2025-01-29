@@ -40,3 +40,21 @@ export const formatFinalDataToFormData = (finalData, placeOrderDataHash) => {
 
   return formData;
 };
+
+export const formatDataToPlaceOrderData = (data) => ({
+  dealType: data.dealType,
+  counterpartyAddress: data.counterpartyAddress,
+  providedPayment: data.providedPayment,
+  requestedPayment: data.requestedPayment,
+  fileContractId: data.fileContractId,
+  counterpartyFileContractId: data.counterpartyFileContractId,
+});
+
+export const getCurrencyAmountFromData = (providedPayment) => {
+  if (!providedPayment) return {};
+
+  const currency = providedPayment.currency;
+  const amount = providedPayment.amount;
+
+  return { currency, amount };
+};

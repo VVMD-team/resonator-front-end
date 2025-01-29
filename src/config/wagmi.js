@@ -69,7 +69,7 @@ export const wagmiConfig = defaultWagmiConfig({
 
 export const web3ModalConfig = {
   metadata,
-  wagmiConfig: wagmiConfig,
+  wagmiConfig,
   projectId,
   enableAnalytics: true,
   allWallets: "HIDE",

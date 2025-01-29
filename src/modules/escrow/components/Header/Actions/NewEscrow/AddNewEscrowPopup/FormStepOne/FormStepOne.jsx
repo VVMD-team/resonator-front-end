@@ -19,14 +19,18 @@ import HookFormInput from "@/ui/HookFormInput";
 import Button from "@/ui/Button";
 import Checkbox from "@/ui/Checkbox";
 
+import { formatEscrowDealTypeToWantHave } from "./helpers";
+
 const options = [
   { value: escrowSelects.FILE, label: "File" },
   { value: escrowSelects.FUNDS, label: "Funds" },
 ];
 
-const optionsShort = [{ value: escrowSelects.FUNDS, label: "Funds" }];
-
-export default function FormStepOne({ onClose, onSubmit }) {
+export default function FormStepOne({
+  onClose,
+  onSubmit,
+  defaultValues = null,
+}) {
   const { user } = useUser();
 
   const userId = user.id;
@@ -42,6 +46,12 @@ export default function FormStepOne({ onClose, onSubmit }) {
     register,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      name: defaultValues?.name || "",
+      counterpartyAddress: defaultValues?.counterpartyAddress || "",
+      want: formatEscrowDealTypeToWantHave(defaultValues?.dealType, "want"),
+      have: formatEscrowDealTypeToWantHave(defaultValues?.dealType, "have"),
+    },
     resolver: yupResolver(escrowCreateSchemaStepOne),
   });
 

@@ -446,6 +446,8 @@ figcaption {
 
 .header_logo_image {
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 .header_account {

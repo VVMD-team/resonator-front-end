@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { authByWallet } from "@/modules/auth/api";
 
 import { useSignMessage, useAccount, useDisconnect } from "wagmi";
+import { useQueryClient } from "@tanstack/react-query";
 
 import useLoading from "@/lib/hooks/useLoading";
 
@@ -20,6 +21,7 @@ import { authMessage, walletTypes } from "@/lib/constants";
 const rejectSignMessageErrorCode = 4001;
 
 export default function WalletConnection() {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const { isLoading, startLoading, stopLoading } = useLoading(false);
@@ -44,12 +46,20 @@ export default function WalletConnection() {
       account: address,
     }).catch((error) => {
       // -32002
-      alert(`Error signing message: ${error.message}`);
+
       console.log(error, error.code);
+      localStorage.clear();
+      sessionStorage.clear();
+      queryClient.clear();
+
+      disconnectAsync().then(() => {
+        stopLoading();
+      });
+
       if (error.code === rejectSignMessageErrorCode) {
-        disconnectAsync().then(() => {
-          stopLoading();
-        });
+        alert("You rejected the request to wallet");
+      } else {
+        alert(`Error signing message: ${error.message}`);
       }
     });
   }, [address, isConnected, isLoading]);
@@ -72,6 +82,7 @@ export default function WalletConnection() {
         });
     }, 1000);
   }, [address, signMessageData]);
+
   return (
     <div
       className={`${styles.login_popup_content} ${
