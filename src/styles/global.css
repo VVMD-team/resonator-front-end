@@ -903,6 +903,7 @@ figcaption {
   transition: border-color 0.2s, color 0.2s, background-color 0.2s, opacity 0.2s;
   display: flex;
   position: relative;
+  min-height: 116px;
 }
 
 @media screen and (min-width: 768px) {
